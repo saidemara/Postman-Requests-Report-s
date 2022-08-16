@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "af29e07c-689f-40b8-97df-f534da0135ff",
+		"name": "operation of employees",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9234313"
+	},
+	"item": [
+		{
+			"name": "GetALL<Employees>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var count = [];\r",
+							"var flag = true;\r",
+							"if (pm.expect(pm.response.responseTime).to.be.below(200)) { pm.test(\"Response time is less than 200ms\") }\r",
+							"if (pm.response.to.have.header(\"Content-Type\")) {\r",
+							"    pm.test(\"Content-Type is present\")\r",
+							"} \r",
+							"var reqestarray = pm.response.json()\r",
+							"console.log(reqestarray)\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"  var age= _.random(20,40);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"followOriginalHttpMethod": true,
+				"followAuthorizationHeader": true,
+				"disableCookies": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{Base_Url}}",
+					"host": [
+						"{{Base_Url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add<Employee>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});\r",
+							"//  var countofUsers = pm.response.json().id;\r",
+							"// var  addeingUers = countofUsers + 10;\r",
+							"// console.log(countofUsers)\r",
+							"// console.log(addeingUers)\r",
+							"\r",
+							"// for (countofUsers;countofUsers < addeingUers;countofUsers++) {\r",
+							"//     postman.setNextRequest(pm.info.requestId)\r",
+							"//     console.log(addeingUers)\r",
+							"\r",
+							"// }\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							";\r",
+							"pm.collectionVariables.set(\"Get_User_Age\", _.random(20, 40))\r",
+							"var Get2Digits = (_.random(.2, 12));\r",
+							"var Get2Digitsonly = (Math.round(Get2Digits * 100) / 100).toFixed(2);\r",
+							"pm.environment.set(\"Get_Random_Discount\", Get2Digitsonly)\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"F_Name\": \"{{$randomFirstName}}\",\r\n    \"L_Name\": \"{{$randomLastName}}\",\r\n    \"Age\": \"{{Get_User_Age}}\",\r\n    \"City\": \"{{$randomCity}}\",\r\n    \"Job Title\": \"{{$randomJobArea}}\",\r\n    \"Status\": \"{{$randomNoun}}\",\r\n    \"Jobtype\": \"{{$randomJobType}}\",\r\n    \"Log\": \"{{$randomImageUrl}}\",\r\n    \"Email\": \"{{$randomEmail}}\",\r\n    \"Job_descrption\": \"{{$randomJobDescriptor}}\",\r\n    \"Phone\": \"{{$randomPhoneNumber}}\",\r\n    \"Discount\": \"{{Get_Random_Discount}}\",\r\n    \"File\" : \"File.text\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_Url}}",
+					"host": [
+						"{{Base_Url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search<Employee>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"var ListofIds = [];\r",
+							"var ListOfUsers = pm.response.json();\r",
+							
+							"if (ListOfUsers !== null) {\r",
+							"\r",
+							"    const IDs = ListOfUsers.map(Users=> Users.id);\r",
+							"\r",
+							"    pm.environment.set(\"Get_users_IDs\", IDs)\r",
+							"\r",
+							"}\r",
+							"//     for (I in ListOfUsers) {\r",
+							"//         // ListofIds.push(ListOfUsers[I].id)\r",
+							"//         // pm.test(\"The count of items := \" +JSON.stringify(ListOfUsers))\r",
+							"\r",
+							"//     }\r",
+							"//     // console.log(ListofIds)\r",
+							"\r",
+							"// }\r",
+							"\r",
+							"// pm.test(\"Status code is 200\", function () {\r",
+							"//     pm.response.to.have.status(200);\r",
+							"// })\r",
+							"\r",
+							"// pm.test(\"The count of items := \" + ListOfUsers.length)\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base_Url}}?Jobtype=Associate",
+					"host": [
+						"{{Base_Url}}"
+					],
+					"query": [
+						{
+							"key": "Jobtype",
+							"value": "Associate"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update<Employee>",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var EmployeesUpdating = pm.environment.get('Get_users_IDs')\r",
+							"console.log(EmployeesUpdating)\r",
+							"if (EmployeesUpdating.length > 0 && EmployeesUpdating !=[]) {\r",
+							"    var Updatinguserbyuser = EmployeesUpdating.shift();\r",
+							"    pm.environment.set(\"Get_current_user\", Updatinguserbyuser)\r",
+							"    pm.environment.set(\"Get_users_IDs\", EmployeesUpdating)\r",
+							"    console.log(EmployeesUpdating.length)\r",
+							"    console.log(EmployeesUpdating)\r",
+							"    var GetRandomSalary = _.random(10000, 11000);\r",
+							"    pm.collectionVariables.set(\"Get_Random_sal\", GetRandomSalary)\r",
+							"    //  pm.collectionVariables.get('Get_Random_sal')\r",
+							"    //  pm.collectionVariables.set(\"Get_current_user\", Updatinguserbyuser)\r",
+							"    //  pm.collectionVariables.set(\"Get_users_IDs\", EmployeesUpdating)\r",
+							"    // console.log(\"This is Current User :=\" + Updatinguserbyuser);\r",
+							"    postman.setNextRequest(pm.info.requestId)\r",
+							"    // console.log(pm.info.requestId)]\r",
+							"\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"    postman.setNextRequest('58ceba4a-ebc9-40f0-a765-a1db561c5430')\r",
+							"    //  pm.collectionVariables.set(\"Get_current_user\", Updatinguserbyuse)\r",
+							"\r",
+							"    pm.collectionVariables.set(\"Get_current_user\", null)\r",
+							"    pm.test.skip(\"List is null\")\r",
+							"    // console.log(pm.info.requestId)\r",
+							"\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.collectionVariables.get('Get_current_user') != null) {\r",
+							"    pm.test(\"Status code is 200\")\r",
+							"}\r",
+							"else {\r",
+							"\r",
+							"    pm.test(\"Status code is 400 Cause the Returned value equal null\")\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Salary\": {{Get_Random_sal}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base_Url}}/{{Get_current_user}}",
+					"host": [
+						"{{Base_Url}}"
+					],
+					"path": [
+						"{{Get_current_user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete<Employee>",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"pm.test(pm.info.requestId)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base_Url}}",
+					"host": [
+						"{{Base_Url}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var environmentval = pm.environment.name",
+					"console.log(environmentval)",
+					"pm.test(\"The current environment:= \" + environmentval, () => {",
+					"    if (environmentval !== null) {",
+					"        pm.expect(pm.environment.name).to.equal('Testnewman')",
+					"    }",
+					"",
+					"    else {",
+					"        postman.setNextRequest(null)",
+					"    }",
+					"}",
+					")",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"//   var nameofcollection=  pm.response.id",
+					"// //   console.log(nameofcollection)"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Get_current_user",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "Get_users_IDs",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "Get_Random_Discount",
+			"value": "0.91",
+			"type": "string"
+		},
+		{
+			"key": "Get_User_Age",
+			"value": 25,
+			"type": "string"
+		},
+		{
+			"key": "Get_Random_sal",
+			"value": 10034,
+			"type": "string"
+		},
+		{
+			"key": "Base_Url",
+			"value": "http://localhost:3000/Users",
+			"type": "string"
+		},
+		{
+			"key": "Get_current_user",
+			"value": ""
+		},
+		{
+			"key": "GetLatestofCurrentUsers",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
