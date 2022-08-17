@@ -1,14 +1,14 @@
-name: "Newman Tests"
+name: "Newman"
 on: [push, pull_request]
 
 jobs:
-  build:
+  build_API:
     runs-on: ubuntu-latest
     container: 
       image: postman/newman
     steps:
       - name: Checkout
-        uses: ./.github/actions/my-action
+        uses: actions/checkout@v3
 
       - name: Run API Tests
         run: newman run "operation of employees.postman_collection.json" -e Testnewman.postman_environment.json
