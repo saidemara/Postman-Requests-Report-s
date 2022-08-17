@@ -8,7 +8,7 @@ jobs:
       image: postman/newman
     steps:
       - name: Checkout
-        uses: actions/checkout@main
+        uses: ./.github/actions/my-action
 
       - name: Run API Tests
         run: newman run "operation of employees.postman_collection.json" -e Testnewman.postman_environment.json
