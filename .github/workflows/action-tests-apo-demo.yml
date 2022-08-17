@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 jobs:
   build_API:
-    runs-on: window-latest
+    runs-on: windows-latest
     container: 
       image: postman/newman
     steps:
