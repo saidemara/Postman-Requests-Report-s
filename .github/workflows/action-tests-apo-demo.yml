@@ -1,8 +1,19 @@
 name: "Newman"
-on: [push, pull_request]
-
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 jobs:
-  build_API:
+  Run-npm-on-Ubuntu:
+    name: Run npm on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run API Tests
+        run: newman run "operation of employees.postman_collection.json" -e Testnewman.postman_environment.json
+  Run-npm-on-windows:
     runs-on: windows-latest
     steps:
       - name: Checkout
