@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: calling
-        run:  run "Server.bat"
+      - name: Port
+        uses: actions/port3000@v3
       - name: Run API Tests
         run: newman run "operation of employees.postman_collection.json" -e Testnewman.postman_environment.json
